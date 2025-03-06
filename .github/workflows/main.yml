@@ -21,16 +21,21 @@ jobs:
           echo "✅ Chrome & Chromedriver installed successfully."
 
       - name: Debug Chrome and Chromedriver
+        shell: pwsh # 强制使用 PowerShell
         run: |
           echo "Checking Chrome version..."
-          if exist "C:\Program Files\Google\Chrome\Application\chrome.exe" (
-            "C:\Program Files\Google\Chrome\Application\chrome.exe" --version
-          ) else (
-            echo "❌ Chrome not found!"
-          )
+          if (Test-Path "C:\Program Files\Google\Chrome\Application\chrome.exe") {
+              & "C:\Program Files\Google\Chrome\Application\chrome.exe" --version
+          } else {
+              echo "❌ Chrome not found!"
+          }
 
           echo "Checking Chromedriver version..."
-          where chromedriver || echo "❌ Chromedriver not found!"
+          if (Get-Command chromedriver -ErrorAction SilentlyContinue) {
+              chromedriver --version
+          } else {
+              echo "❌ Chromedriver not found!"
+          }
 
       - name: Install Python dependencies
         run: |
