@@ -1,22 +1,62 @@
 # Unlock-NetEaseMusic
-Use the Chrome extension NetEaseMusicWorld+ to unlock overseas NetEase Music access.
 
-It's run by Github Actions, so no self-hosted server is needed.
+## 简介 | Introduction
 
-## How to run on Github
+🎵 **Unlock-NetEaseMusic** 让海外用户可以解锁网易云音乐的歌曲。
 
-1. Fork this repository (and star if you like it)
-2. In your own repository, enter your email and password as the value of two Github Action repository secrets `EMAIL` and `PASSWORD` .
-3. Run Github Action `Unlock-NetEaseMusic` (It will run automatically every day.)
+It uses the **NetEaseMusicWorld+ Chrome extension** to trick NetEase Music into thinking your IP is in China.
 
-## How to run locally
+📌 **GitHub Actions will run automatically, no need for a self-hosted server!**
 
-1. Install python packages: `pip install selenium webdriver_manager `
-2. Enter your email address and password in `auto_login.py`
-3. Run `auto_login.py`
+---
 
-## How it works
+## 🚀 在 GitHub 运行 | Run on GitHub
 
-When you login to https://music.163.com in Chrome the extension NetEaseMusicWorld+ will automatically run a script to make NetEase believe that your IP is in China. Once this is done, NetEase will allow you to access music in all platforms (e.g. on phone apps) for a short time (unclear) even if you access from a foreign IP.
+1. **Fork this repository** (Give it a ⭐ Star if you like it!)
+2. **Add GitHub Action Secrets** (Go to `Settings` → `Secrets and Variables` → `Actions`):
+   - `EMAIL`: Your NetEase Music account email
+   - `PASSWORD`: Your NetEase Music account password
+3. **Run GitHub Actions manually** or let it run automatically every day.
 
-The Github Action will run daily to do the above actions and unlock you from the foreign IP restriction.
+---
+
+## 🖥️ 本地运行 | Run Locally
+
+1. **安装依赖 | Install dependencies**
+   ```sh
+   pip install selenium webdriver_manager
+   ```
+2. **修改 `auto_login.py`，填入你的网易云账号 | Edit `auto_login.py` and enter your credentials**
+3. **运行脚本 | Run the script**
+   ```sh
+   python auto_login.py
+   ```
+
+---
+
+## 🔍 工作原理 | How It Works
+
+1. **打开网易云音乐 | Open NetEase Music** (https://music.163.com).
+2. **使用 Chrome 插件 `NetEaseMusicWorld+` 伪装 IP | The Chrome extension fakes your IP** (NetEase thinks you are in China).
+3. **解锁你的网易云账号 | Unlocks your NetEase account** so you can play music on all platforms.
+4. **GitHub Actions 每天自动运行 | Runs automatically every day** to keep your account unlocked.
+
+---
+
+## ❓ 常见问题 | FAQ
+
+**Q: 为什么 GitHub Actions 运行很慢？ | Why is GitHub Actions slow?**
+- GitHub provides free servers, but they may have slow network speeds.
+- Try using your own VPS for faster execution.
+
+**Q: 为什么解锁后还是灰色？ | Why are songs still locked?**
+- NetEase may have detected the script, try using a different `MUSIC_U` Cookie.
+
+**Q: 如何获取 `MUSIC_U` Cookie？ | How do I get my `MUSIC_U` Cookie?**
+1. **登录网易云音乐 | Log in to NetEase Music** in your browser.
+2. **按 `F12` 打开开发者工具 | Open DevTools (`F12`) → `Application` → `Cookies` → `music.163.com`**.
+3. **复制 `MUSIC_U` 的值 | Copy the `MUSIC_U` value** and paste it into `auto_login.py`.
+
+---
+
+💡 **如果有问题，欢迎提交 Issue！ | If you have any issues, feel free to open an Issue!** 🚀
