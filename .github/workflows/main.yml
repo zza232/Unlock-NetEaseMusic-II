@@ -17,14 +17,15 @@ jobs:
         run: |
           choco install googlechrome -y
           choco install chromedriver -y
-          echo "Chrome & Chromedriver installed successfully."
+          echo "✅ Chrome & Chromedriver installed successfully."
 
       - name: Debug Chrome and Chromedriver
         run: |
           echo "Checking Chrome version..."
-          reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Google\Chrome\BLBeacon" /v version
+          "C:\Program Files\Google\Chrome\Application\chrome.exe" --version || echo "Chrome not found"
+
           echo "Checking Chromedriver version..."
-          where chromedriver
+          where chromedriver || echo "Chromedriver not found"
 
       - name: Install Python dependencies
         run: |
