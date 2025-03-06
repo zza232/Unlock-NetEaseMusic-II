@@ -31,7 +31,7 @@ def enter_iframe(browser):
     return browser
 
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=5)
-def extension_login(email, password):
+def extension_login():
     chrome_options = webdriver.ChromeOptions()
 
     logging.info("Load Chrome extension NetEaseMusicWorldPlus")
@@ -50,45 +50,14 @@ def extension_login(email, password):
 
     browser.get('https://music.163.com')
 
-    # Find and click login button
-    logging.info("Click login button")
-    login_button = browser.find_element(By.XPATH, "//a[text()='登录']")
-    browser.execute_script('arguments[0].scrollIntoView(true);', login_button)
-    time.sleep(2)
-    login_button.click()
-
-    # Select login method
-    logging.info("Select login method")
-    time.sleep(2)
-    browser.find_element(By.XPATH, "//a[text()='选择其他登录模式']").click()
-
-    # Agree to terms
-    logging.info("Agree to terms")
-    browser.find_element(By.ID, 'j-official-terms').click()
-
-    # Choose email login
-    logging.info("Select email login")
-    browser.find_element(By.XPATH, "//a[text()='网易邮箱帐号登录']").click()
-
-    # Enter login iframe
-    time.sleep(5)
-    browser = enter_iframe(browser)
-
-    # Enter email and password
-    logging.info("Enter credentials")
-    browser.find_element(By.CSS_SELECTOR, "input.j-inputtext[name='email']").send_keys(email)
-    browser.find_element(By.NAME, 'password').send_keys(password)
-
-    time.sleep(2)
-
-    # Click login button
-    logging.info("Submit login")
-    browser.find_element(By.ID, 'dologin').click()
-
-    time.sleep(2)
-
-    # Refresh to confirm login
+    # Inject Cookie to skip login
+    logging.info("Injecting Cookie to skip login")
+    browser.add_cookie({"name": "MUSIC_U", "value": "00E37EAD61C158D8CD0A632BBFBBDC8402DDE5CCB032A5C4AEDB922E00EC6BA5847B448E093B56F3F91D473FE0A58EB0F2AFE66E1EDFB1754F9581C816C0B05317E851E6E9DECF25DBA3AE11AB78E341F4ACE4D4913533ED9B5D808E91254643713D4F5B7D344D79FB0D8344DFEA691E5A426C55CE702484BAEE5249C7B1F96086AA5C1B38400318CC76AB358176A0F78882E055771750EBDEF9CEE43608F0EC6FF76BE5FB0324EEDE3753B879E8061AEA2EDF9E15D44A6899EEBB1196EA4E41CE367F8BF1B88AA083BF887A0AFCA8BB28A0B4B0D3C65F2E082D524B358564B76445286BEBF51D2B2E3C9E2E4BC09100AB0FA2C5D0BAD29F8B96CDC23BFFBD877F929479AE351948FF002B5C7E5A0F2066B3D9C5D24ED3DBD0A1134C1D68DD6D54667AB7ED2DF00C0EC9ECB416FED2983F4BC99B69D2FB3354EA587BF4FA7857778B814AEED2C793EF42D7478AC27994CDD32C61915E689F4D076F3DE1E38214AC"})
     browser.refresh()
+    time.sleep(5)  # Wait for the page to refresh
+    logging.info("Cookie login successful")
+
+    # Confirm login is successful
     logging.info("Unlock finished")
 
     time.sleep(10)
@@ -97,12 +66,6 @@ def extension_login(email, password):
 
 if __name__ == '__main__':
     try:
-        email = os.environ.get('EMAIL')
-        password = os.environ.get('PASSWORD')
-        
-        if not email or not password:
-            raise ValueError("EMAIL or PASSWORD is not set in environment variables.")
+        extension_login()
     except Exception as e:
-        logging.error(f"Failed to read email and password: {e}")
-    else:
-        extension_login(email, password)
+        logging.error(f"Failed to execute login script: {e}")
