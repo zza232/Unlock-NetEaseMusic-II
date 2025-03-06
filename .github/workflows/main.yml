@@ -2,26 +2,36 @@ name: Unlock-NetEaseMusic
 
 on:
   schedule:
-    # * is a special character in YAML so you have to quote this string
-    - cron:  '37 */8 * * *'
+    - cron: "37 */8 * * *" # Runs every 8 hours
   workflow_dispatch:
 
 jobs:
   build:
     runs-on: windows-latest
+
     steps:
-    - name: Cherkout
-      uses: actions/checkout@v2
+      - name: Checkout repository
+        uses: actions/checkout@v2
 
-    - name: Install python packages
-      run: |
-        python -m pip install --upgrade pip
-        pip install -r requirements.txt
+      - name: Set up Chrome & Chromedriver
+        run: |
+          choco install googlechrome chromedriver -y
+          echo "Chrome and Chromedriver installed."
 
-    - name: Login and unlock
-      env:
-        EMAIL: ${{secrets.EMAIL}}
-        PASSWORD: ${{secrets.PASSWORD}}
-        PYTHONIOENCODING: utf-8
-        PYTHONLEGACYWINDOWSSTDIO: utf-8
-      run: python auto_login.py
+      - name: Install Python dependencies
+        run: |
+          python -m pip install --upgrade pip
+          pip install -r requirements.txt
+
+      - name: Debug Chrome and Chromedriver
+        run: |
+          google-chrome --version
+          chromedriver --version
+
+      - name: Run unlock script
+        env:
+          EMAIL: ${{ secrets.EMAIL }}
+          PASSWORD: ${{ secrets.PASSWORD }}
+          PYTHONIOENCODING: utf-8
+          PYTHONLEGACYWINDOWSSTDIO: utf-8
+        run: python auto_login.py
