@@ -6,6 +6,8 @@ import logging
 from selenium import webdriver
 from selenium.webdriver.common.by import By
 from selenium.webdriver.chrome.service import Service
+from selenium.webdriver.support.ui import WebDriverWait
+from selenium.webdriver.support import expected_conditions as EC
 from webdriver_manager.chrome import ChromeDriverManager
 from retrying import retry
 
@@ -15,8 +17,17 @@ logging.basicConfig(level=logging.INFO, format='[%(levelname)s] %(asctime)s %(me
 @retry(wait_random_min=5000, wait_random_max=10000, stop_max_attempt_number=3)
 def enter_iframe(browser):
     logging.info("Enter login iframe")
-    target = browser.find_element(By.XPATH, "//*[starts-with(@id,'x-URS-iframe')]")
-    browser.switch_to.frame(target)
+    time.sleep(5)  # 给 iframe 额外时间加载
+    try:
+        iframe = WebDriverWait(browser, 10).until(
+            EC.presence_of_element_located((By.XPATH, "//*[starts-with(@id,'x-URS-iframe')]")
+        ))
+        browser.switch_to.frame(iframe)
+        logging.info("Switched to login iframe")
+    except Exception as e:
+        logging.error(f"Failed to enter iframe: {e}")
+        browser.save_screenshot("debug_iframe.png")  # 记录截图
+        raise
     return browser
 
 @retry(wait_random_min=1000, wait_random_max=3000, stop_max_attempt_number=5)
