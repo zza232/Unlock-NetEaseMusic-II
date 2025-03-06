@@ -18,10 +18,10 @@ It uses the **NetEaseMusicWorld+ Chrome extension** to trick NetEase Music into 
      - Press `F12` → Go to **Application** → **Cookies** → `music.163.com`.  
      - Copy the value of `MUSIC_U` and replace it in `auto_login.py`.  
 3. **Add GitHub Action Secrets** (Go to `Settings` → `Secrets and Variables` → `Actions`):  
-   - `EMAIL`: Your NetEase Music account email.  
+   - `EMAIL`: Your NetEase Music account email (or phone number).  
    - `PASSWORD`: Your NetEase Music account password.  
-4. **Run GitHub Actions manually** or let it run automatically every day.  
-   - Go to **"Actions" Tab** → Select `Unlock NetEase Music` → Click **"Run workflow"**. 
+4. **Run GitHub Actions** (let it run automatically every day).  
+   - Go to **"Actions" Tab** → Select `Unlock-NetEaseMusic` → Click **"Run workflow"**. 
 
 ---
 
