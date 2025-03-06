@@ -1,8 +1,7 @@
-# Unlock-NetEaseMusic
 
 ## 简介 | Introduction
 
-🎵 **Unlock-NetEaseMusic** 让海外用户可以解锁网易云音乐的歌曲。
+🎵 **Unlock-NetEaseMusic-II** 让海外用户可以解锁网易云音乐的歌曲。
 
 It uses the **NetEaseMusicWorld+ Chrome extension** to trick NetEase Music into thinking your IP is in China.
 
@@ -12,11 +11,17 @@ It uses the **NetEaseMusicWorld+ Chrome extension** to trick NetEase Music into 
 
 ## 🚀 在 GitHub 运行 | Run on GitHub
 
-1. **Fork this repository** (Give it a ⭐ Star if you like it!)
-2. **Add GitHub Action Secrets** (Go to `Settings` → `Secrets and Variables` → `Actions`):
-   - `EMAIL`: Your NetEase Music account email
-   - `PASSWORD`: Your NetEase Music account password
-3. **Run GitHub Actions manually** or let it run automatically every day.
+1. **Fork this repository** (Give it a ⭐ Star if you like it!).
+2. **Update your own `MUSIC_U` Cookie** in `auto_login.py`.  
+   - You can get `MUSIC_U` from your browser:  
+     - Open **NetEase Cloud Music** in Chrome.  
+     - Press `F12` → Go to **Application** → **Cookies** → `music.163.com`.  
+     - Copy the value of `MUSIC_U` and replace it in `auto_login.py`.  
+3. **Add GitHub Action Secrets** (Go to `Settings` → `Secrets and Variables` → `Actions`):  
+   - `EMAIL`: Your NetEase Music account email.  
+   - `PASSWORD`: Your NetEase Music account password.  
+4. **Run GitHub Actions manually** or let it run automatically every day.  
+   - Go to **"Actions" Tab** → Select `Unlock NetEase Music` → Click **"Run workflow"**. 
 
 ---
 
@@ -51,11 +56,6 @@ It uses the **NetEaseMusicWorld+ Chrome extension** to trick NetEase Music into 
 
 **Q: 为什么解锁后还是灰色？ | Why are songs still locked?**
 - NetEase may have detected the script, try using a different `MUSIC_U` Cookie.
-
-**Q: 如何获取 `MUSIC_U` Cookie？ | How do I get my `MUSIC_U` Cookie?**
-1. **登录网易云音乐 | Log in to NetEase Music** in your browser.
-2. **按 `F12` 打开开发者工具 | Open DevTools (`F12`) → `Application` → `Cookies` → `music.163.com`**.
-3. **复制 `MUSIC_U` 的值 | Copy the `MUSIC_U` value** and paste it into `auto_login.py`.
 
 ---
 
