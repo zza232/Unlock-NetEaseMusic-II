@@ -15,17 +15,22 @@ jobs:
 
       - name: Install Chrome & Chromedriver
         run: |
+          echo "Installing Google Chrome and Chromedriver..."
           choco install googlechrome -y
-          choco install chromedriver -y
+          choco install chromedriver -y --force
           echo "✅ Chrome & Chromedriver installed successfully."
 
       - name: Debug Chrome and Chromedriver
         run: |
           echo "Checking Chrome version..."
-          "C:\Program Files\Google\Chrome\Application\chrome.exe" --version || echo "Chrome not found"
+          if exist "C:\Program Files\Google\Chrome\Application\chrome.exe" (
+            "C:\Program Files\Google\Chrome\Application\chrome.exe" --version
+          ) else (
+            echo "❌ Chrome not found!"
+          )
 
           echo "Checking Chromedriver version..."
-          where chromedriver || echo "Chromedriver not found"
+          where chromedriver || echo "❌ Chromedriver not found!"
 
       - name: Install Python dependencies
         run: |

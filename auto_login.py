@@ -27,8 +27,12 @@ def extension_login(email, password):
     chrome_options.add_extension('NetEaseMusicWorldPlus.crx')
 
     logging.info("Initializing Chrome WebDriver")
-    service = Service(ChromeDriverManager().install())  # Auto-download correct chromedriver
-    browser = webdriver.Chrome(service=service, options=chrome_options)
+    try:
+        service = Service(ChromeDriverManager().install())  # Auto-download correct chromedriver
+        browser = webdriver.Chrome(service=service, options=chrome_options)
+    except Exception as e:
+        logging.error(f"Failed to initialize ChromeDriver: {e}")
+        return
 
     # Set global implicit wait
     browser.implicitly_wait(20)
@@ -82,9 +86,12 @@ def extension_login(email, password):
 
 if __name__ == '__main__':
     try:
-        email = os.environ['EMAIL']
-        password = os.environ['PASSWORD']
-    except KeyError:
-        logging.error('Failed to read email and password.')
+        email = os.environ.get('EMAIL')
+        password = os.environ.get('PASSWORD')
+        
+        if not email or not password:
+            raise ValueError("EMAIL or PASSWORD is not set in environment variables.")
+    except Exception as e:
+        logging.error(f"Failed to read email and password: {e}")
     else:
         extension_login(email, password)
