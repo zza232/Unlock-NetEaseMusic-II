@@ -13,20 +13,23 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      - name: Set up Chrome & Chromedriver
+      - name: Install Chrome & Chromedriver
         run: |
-          choco install googlechrome chromedriver -y
-          echo "Chrome and Chromedriver installed."
+          choco install googlechrome -y
+          choco install chromedriver -y
+          echo "Chrome & Chromedriver installed successfully."
+
+      - name: Debug Chrome and Chromedriver
+        run: |
+          echo "Checking Chrome version..."
+          reg query "HKEY_LOCAL_MACHINE\SOFTWARE\Google\Chrome\BLBeacon" /v version
+          echo "Checking Chromedriver version..."
+          where chromedriver
 
       - name: Install Python dependencies
         run: |
           python -m pip install --upgrade pip
           pip install -r requirements.txt
-
-      - name: Debug Chrome and Chromedriver
-        run: |
-          google-chrome --version
-          chromedriver --version
 
       - name: Run unlock script
         env:
