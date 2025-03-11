@@ -1,62 +1,68 @@
+## 🎵 Unlock-NetEaseMusic-II
 
-## 简介 | Introduction
+**Unlock-NetEaseMusic-II** 让海外用户解锁网易云音乐的灰色歌曲！
 
-🎵 **Unlock-NetEaseMusic-II** 让海外用户可以解锁网易云音乐的歌曲。
-
-It uses the **NetEaseMusicWorld+ Chrome extension** to trick NetEase Music into thinking your IP is in China.
-
-📌 **GitHub Actions will run automatically, no need for a self-hosted server!**
-
----
-
-## 🚀 在 GitHub 运行 | Run on GitHub
-
-1. **Fork this repository** (Give it a ⭐ Star if you like it!).
-2. **Update your own `MUSIC_U` Cookie** in `auto_login.py`.  
-   - You can get `MUSIC_U` from your browser:  
-     - Open **NetEase Cloud Music** in Chrome.  
-     - Press `F12` → Go to **Application** → **Cookies** → `music.163.com`.  
-     - Copy the value of `MUSIC_U` and replace it in `auto_login.py`.  
-3. **Add GitHub Action Secrets** (Go to `Settings` → `Secrets and Variables` → `Actions`):  
-   - `EMAIL`: Your NetEase Music account email (or phone number).  
-   - `PASSWORD`: Your NetEase Music account password.  
-4. **Run GitHub Actions** (let it run automatically every day).  
-   - Go to **"Actions" Tab** → Select `Unlock-NetEaseMusic` → Click **"Run workflow"**. 
+👉 简易快速上手
+👉 无需本地部署
+👉 全自动 GitHub Actions，每天自动运行
 
 ---
 
-## 🖥️ 本地运行 | Run Locally
+## 🚀 快速开始
 
-1. **安装依赖 | Install dependencies**
-   ```sh
-   pip install selenium webdriver_manager
-   ```
-2. **修改 `auto_login.py`，填入你的网易云账号 | Edit `auto_login.py` and enter your credentials**
-3. **运行脚本 | Run the script**
-   ```sh
-   python auto_login.py
-   ```
+### 1. Fork 仓库
+
+- 点击页面右上角 **Fork**，复制项目到自己的 GitHub 账号。
+- 喜欢的话点个 ⭐ 。
+
+### 2. 获取 `MUSIC_U`
+
+- 打开 [网易云音乐](https://music.163.com/) (推荐使用 Chrome 浏览器)。
+- 登录账号，按 `F12` 打开开发者工具。
+- 进入「Application」 →「Cookies」→ `https://music.163.com`。
+- 找到 `MUSIC_U`，复制它的值。
+
+### 3. 修改 `auto_login.py`
+
+- 打开 Fork 后的仓库 → 找到并打开 `auto_login.py`。
+- 点击右上角铅笔图标进入编辑模式。
+- 替换以下代码：
+    
+    ```python
+    MUSIC_U = "你的MUSIC_U"
+    ```
+    
+- 填好后，点击 **Commit changes** 保存。
+
+### 4. 启动 GitHub Actions
+
+- 进入仓库顶部的 **Actions**。
+- 首次使用，点击「I understand my workflows...」启用。
+- 选择左侧 `Unlock-NetEaseMusic`，点击右侧 **Run workflow**。
+- 运行成功后，自动进入每天定时执行，无需再管。
 
 ---
 
-## 🔍 工作原理 | How It Works
+## 🔧 工作原理
 
-1. **打开网易云音乐 | Open NetEase Music** (https://music.163.com).
-2. **使用 Chrome 插件 `NetEaseMusicWorld+` 伪装 IP | The Chrome extension fakes your IP** (NetEase thinks you are in China).
-3. **解锁你的网易云账号 | Unlocks your NetEase account** so you can play music on all platforms.
-4. **GitHub Actions 每天自动运行 | Runs automatically every day** to keep your account unlocked.
-
----
-
-## ❓ 常见问题 | FAQ
-
-**Q: 为什么 GitHub Actions 运行很慢？ | Why is GitHub Actions slow?**
-- GitHub provides free servers, but they may have slow network speeds.
-- Try using your own VPS for faster execution.
-
-**Q: 为什么解锁后还是灰色？ | Why are songs still locked?**
-- NetEase may have detected the script, try using a different `MUSIC_U` Cookie.
+1. `NetEaseMusicWorld+` 插件伪装 IP，网易云识别为国内用户。
+2. GitHub Actions 每天定时运行，保持 `MUSIC_U` 有效状态。
+3. 解锁网易云账号，灰色歌曲正常播放。
 
 ---
 
-💡 **如果有问题，欢迎提交 Issue！ | If you have any issues, feel free to open an Issue!** 🚀
+## ❓ FAQ
+
+### GitHub Actions 首次运行较慢？
+
+首次拉取环境和依赖，属于正常现象。后续自动运行，速度正常。
+
+### 歌曲再次变灰？
+
+`MUSIC_U` 已失效。重新获取 Cookie，重复第 2、3、4 步。
+
+---
+
+## 💡 Issues
+
+有问题请 → [Issues](https://github.com/aoshendev/Unlock-NetEaseMusic-II/issues) ｜ 欢迎 Contribute 👏
